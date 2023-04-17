@@ -12,7 +12,7 @@ int main()
 	/*
 	* 1. Set player name => Add player to the game with some money
 	* 2. Add diller to the game
-	* 3. Make a bet ( min / max bets or templates)
+	* 3. Make a bet (min / max bets or templates)
 	* 4. Shuffle deck
 	* 4. Dealer take two card, on card he show another if not faceup
 	* 5. Player take two card
@@ -38,20 +38,18 @@ int main()
 
 	std::cout << "Welcome to Black Jack Console Game" << std::endl << std::endl;
 
-	std::cout << "MAIN MENU" << std::endl << std::endl;
-
-	std::cout << "Press 1: New Game" << std::endl;
-	std::cout << "Press 2: Rules" << std::endl;
-	std::cout << "Press 3: Exit" << std::endl << std::endl;
+	Menu::GetInstance().ShowMainMenu();
 
 	char buttonPressed;
+
 	while (true) {
+
 		buttonPressed = _getch();
+
 		if (buttonPressed != '\r')
 		{
-			// num = static_cast<int>(ch) - 48;
 			std::cout << buttonPressed << std::endl;
-			Menu::GoToMenu(static_cast<MenuItem>(buttonPressed));
+			Menu::GetInstance().GoToMenu(static_cast<MenuItem>(buttonPressed));
 		}
 	}
 

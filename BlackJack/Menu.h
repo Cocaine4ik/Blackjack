@@ -8,17 +8,23 @@ enum class MenuItem {
 
 class Menu
 {
-	private:
-
-		bool isPaused = false;
+private:
+	bool isPaused = false;
 
 public:
-	static void GoToMenu(MenuItem item);
-	static void ShowMenu();
+	static Menu& GetInstance() { static Menu instance; return instance; };
+
+	void GoToMenu(MenuItem item);
+	void ShowMainMenu();
+	void ShowPauseMenu();
 
 private:
-	static void StartGame();
-	static void ShowRules();
-	static void ExitGame();
+	Menu() {};
+	Menu(const Menu&) = delete;
+	Menu& operator = (const Menu&) = delete;
+
+	void StartGame();
+	void ShowRules();
+	void ExitGame();
 };
 

@@ -33,20 +33,23 @@ void Menu::ShowRules()
 	}
 
 	fin.close();
+
+	std::cout << std::endl;
+
+	(isPaused) ? ShowPauseMenu() : ShowMainMenu();
+
 }
 
 void Menu::ExitGame()
 {
-
-	exit(0);
-	std::cout << "Are you sure you want to exit the game?\tPress: y - yes / n - no |" << std::endl;
+	std::cout << "Are you sure you want to exit the game?\tPress: y - yes / n - no" << std::endl;
 	char result;
 	std::cin >> result;
 	
 	if (result == 'y') exit(0);
 }
 
- void Menu::GoToMenu(MenuItem item)
+void Menu::GoToMenu(MenuItem item)
 {
 	switch (item)
 	{
@@ -57,6 +60,15 @@ void Menu::ExitGame()
 	}
 }
 
- void Menu::ShowMenu()
+ void Menu::ShowMainMenu()
  {
+	 isPaused = false;
+
+	 std::cout << "MAIN MENU:\t" << "1. New Game\t" << "2. Rules\t" << "3. Exit" << std::endl;
+	 std::cout << "Press button to continue..." << std::endl;
+ }
+
+ void Menu::ShowPauseMenu()
+ {
+	 isPaused = true;
  }
