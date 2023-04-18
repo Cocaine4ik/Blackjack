@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <conio.h>
 
 #define RULES_PATH "rules.txt"
 
@@ -12,6 +13,7 @@ void Menu::StartGame()
 
 void Menu::ShowRules()
 {
+    system("cls");
 	std::ifstream fin(RULES_PATH);
 
 	if (!fin.is_open()) {
