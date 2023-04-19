@@ -1,19 +1,20 @@
 #pragma once
 #include <string>
-#include <unordered_set>
+#include <list>
+#include "Card.h"
 
-class Card;
 class Player
 {
 private:
     std::string name;
     int money;
     int score;
-
-    std::unordered_set<Card> mainHand;
-    std::unordered_set<Card> splitHand;
-
+    
+    std::list<Card> mainHand;
+    std::list<Card> splitHand;
 public:
+    Player(std::string name);
+
     void Hit();
     void Stand();
     void DoubleDown();
