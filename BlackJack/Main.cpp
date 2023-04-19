@@ -2,6 +2,8 @@
 #include <string>
 #include <conio.h>
 #include "Menu.h"
+#include "InputHandler.h"
+#include "GameMode.h"
 
 int main()
 {
@@ -38,30 +40,18 @@ int main()
 
 	std::cout << "Welcome to Black Jack Console Game" << std::endl << std::endl;
 
+    GameMode::GetInstance().SetGameState(GameState::Menu);
 	Menu::GetInstance().ShowMainMenu();
 
 	char buttonPressed;
 
 	while (true) {
 
-		buttonPressed = _getch();
+        if (!InputHandler::GetInstance().IsBlocked()) {
 
-		if (buttonPressed != '\r')
-		{
-			std::cout << buttonPressed << std::endl;
-			Menu::GetInstance().GoToMenu(static_cast<MenuItem>(buttonPressed));
-		}
+            buttonPressed = _getch();
+            InputHandler::GetInstance().HandleInput(static_cast<Button>(buttonPressed));
+        }
 	}
-
-}
-
-void StartGame() {
-
-}
-void ShowRules() {
-
-}
-
-void ShowMenu() {
 
 }
