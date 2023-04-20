@@ -18,12 +18,7 @@ public:
 class ShowPauseMenuCommand : public Command
 {
 public:
-    virtual void Execute() { ShowPauseMenu(); }
-
-    void ShowPauseMenu() 
-    { 
-        Menu::GetInstance().ShowPauseMenu();
-    }
+    virtual void Execute() { Menu::GetInstance().ShowPauseMenu(); }
 };
 
 /**
@@ -32,12 +27,7 @@ public:
 class ShowExitMenuCommand : public Command
 {
 public:
-    virtual void Execute() { ShowExitMenu(); }
-
-    void ShowExitMenu() 
-    {
-        Menu::GetInstance().ShowExitMenu();
-    }
+    virtual void Execute() { Menu::GetInstance().ShowExitMenu(); }
 };
 
 /**
@@ -46,9 +36,7 @@ public:
 class ShowRulesCommand : public Command
 {
 public:
-    virtual void Execute() { ShowRules(); }
-
-    void ShowRules()
+    virtual void Execute()
     {
         Menu::GetInstance().ShowRules();
 
@@ -56,6 +44,11 @@ public:
             Menu::GetInstance().ShowPauseMenu();
         }
         else Menu::GetInstance().ShowMainMenu();
-
     }
+};
+
+class StartNewGameCommand : public Command
+{
+public:
+    virtual void Execute() { GameMode::GetInstance().StartGame(); }
 };

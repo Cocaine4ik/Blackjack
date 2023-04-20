@@ -3,6 +3,7 @@
 #include <string>
 #include "Player.h"
 #include "Deck.h"
+#include "InputHandler.h"
 
 GameMode::~GameMode()
 {
@@ -16,10 +17,16 @@ void GameMode::StartGame()
     deck = new Deck();
     deck->Shuffle();
 
+    InputHandler::GetInstance().Block(true);
+
     std::string name;
     std::cout << "Enter your name: ";
     std::cin >> name;
 
+    InputHandler::GetInstance().Block(false);
+
     player = new Player(name);
     dealer = new Player("Dealer");
+
+    player->Bet();
 }
