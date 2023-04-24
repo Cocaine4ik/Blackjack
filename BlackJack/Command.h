@@ -1,6 +1,7 @@
 #pragma once
-#include "Menu.h"
+#include "UIController.h"
 #include "GameMode.h"
+#include "Player.h"
 
 /**
  * @brief 
@@ -18,7 +19,7 @@ public:
 class ShowPauseMenuCommand : public Command
 {
 public:
-    virtual void Execute() { Menu::GetInstance().ShowPauseMenu(); }
+    virtual void Execute() { UIController::GetInstance().ShowPauseMenu(); }
 };
 
 /**
@@ -27,7 +28,7 @@ public:
 class ShowExitMenuCommand : public Command
 {
 public:
-    virtual void Execute() { Menu::GetInstance().ShowExitMenu(); }
+    virtual void Execute() { UIController::GetInstance().ShowExitConfirmation(); }
 };
 
 /**
@@ -38,17 +39,41 @@ class ShowRulesCommand : public Command
 public:
     virtual void Execute()
     {
-        Menu::GetInstance().ShowRules();
+        auto gameState = GameMode::GetInstance().GetGameState();
+        auto& uiController = UIController::GetInstance();
 
-        if (GameMode::GetInstance().GetGameState() == GameState::Pause) {
-            Menu::GetInstance().ShowPauseMenu();
+        if (gameState == GameState::Pause) 
+        {
+            uiController.ShowRules();
+            uiController.ShowPauseMenu();
         }
-        else Menu::GetInstance().ShowMainMenu();
+        else if (gameState == GameState::Menu)
+        {
+            uiController.ShowRules();
+            uiController.ShowMainMenu();
+        }
     }
 };
 
 class StartNewGameCommand : public Command
 {
 public:
-    virtual void Execute() { GameMode::GetInstance().StartGame(); }
+    virtual void Execute()
+    {
+        auto& gameMode = GameMode::GetInstance();
+        auto gameState = gameMode.GetGameState();
+
+        if(gameState == GameState::Menu || gameState == GameState::Pause) gameMode.StartGame();
+    }
+};
+
+class SmallBetCommand : public Command 
+{
+public:
+    virtual void Execute()
+    {
+        auto& player = GameMode::GetInstance().GetPlayer();
+
+        player.Bet(100);
+    }
 };

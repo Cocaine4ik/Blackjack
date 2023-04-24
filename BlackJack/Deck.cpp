@@ -24,6 +24,14 @@ Deck::Deck()
     }
 }
 
+Card Deck::DealCard()
+{
+    auto card = std::move(cards.front());
+    cards.pop();
+
+    return card;
+}
+
 void Deck::Shuffle()
 {
     std::deque<Card> temp;

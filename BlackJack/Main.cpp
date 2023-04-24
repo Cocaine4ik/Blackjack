@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
-#include "Menu.h"
+#include "UIController.h"
 #include "InputHandler.h"
 #include "GameMode.h"
 
@@ -40,8 +40,7 @@ int main()
 
 	std::cout << "Welcome to Black Jack Console Game" << std::endl << std::endl;
 
-    GameMode::GetInstance().SetGameState(GameState::Menu);
-	Menu::GetInstance().ShowMainMenu();
+	UIController::GetInstance().ShowMainMenu();
 
 	char buttonPressed;
 

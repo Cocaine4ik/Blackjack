@@ -1,8 +1,10 @@
 #pragma once
+#include "Singleton.h"
 
 class Command;
 
-enum class Button {
+enum class Button 
+{
     Button_ESC = 27,
     Button_0 = 48,
     Button_1 = 49,
@@ -13,21 +15,30 @@ enum class Button {
     Button_D = 68,
     Button_B = 66,
     Button_Y = 89,
-    Button_N = 78
+    Button_N = 78,
+    Button_F1 = 112,
+    Button_F2 = 113,
+    Button_F3 = 114,
+    Button_F4 = 115
 };
 
-class InputHandler
+class InputHandler : public Singleton <InputHandler>
 {
-public:
+    friend class Singleton<InputHandler>;
+
+private:
+    InputHandler();
     ~InputHandler();
-    static InputHandler& GetInstance() { static InputHandler instance; return instance; };
+
+public:
     void HandleInput(Button button);
 
     bool IsBlocked() const { return isBlocked; }
     void Block(bool value) { isBlocked = value; }
 
+
 private:
-    bool isBlocked = false;
+    bool isBlocked;
 
     Command* button_ESC;
     Command* button_0;
@@ -40,9 +51,9 @@ private:
     Command* button_B;
     Command* button_Y;
     Command* button_N;
-
-    InputHandler();
-    InputHandler(const InputHandler&) = delete;
-    InputHandler& operator = (const InputHandler&) = delete;
+    Command* button_F1;
+    Command* button_F2;
+    Command* button_F3;
+    Command* button_F4;
 
 };

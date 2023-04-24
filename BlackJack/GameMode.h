@@ -1,4 +1,5 @@
 #pragma once
+#include "Singleton.h"
 
 class Player;
 class Deck;
@@ -7,33 +8,30 @@ enum class GameState
 {
     Menu,
     Pause,
+    Bets,
     Game,
     Exit
 };
 
-class GameMode
+class GameMode : public Singleton <GameMode>
 {
+    friend class Singleton<GameMode>;
 
 private:
+    ~GameMode();
+
     GameState gameState = GameState::Menu;
 
     Player* player;
     Player* dealer;
     Deck* deck;
 
-
 public:
-    ~GameMode();
-    static GameMode& GetInstance() { static GameMode instance; return instance; }
-
-    GameState GetGameState() { return gameState; }
+    GameState GetGameState() const { return gameState; }
     void SetGameState(GameState state) { gameState = state; }
 
-    void StartGame();
+    Player& GetPlayer() const { return *player;  }
 
-private:
-    GameMode() {};
-    GameMode(const GameMode&) = delete;
-    GameMode& operator = (const GameMode&) = delete;
+    void StartGame();
 };
 

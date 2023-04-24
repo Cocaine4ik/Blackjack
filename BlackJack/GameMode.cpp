@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Deck.h"
 #include "InputHandler.h"
+#include "UIController.h"
 
 GameMode::~GameMode()
 {
@@ -14,6 +15,10 @@ GameMode::~GameMode()
 
 void GameMode::StartGame()
 {
+    system("cls");
+
+    SetGameState(GameState::Game);
+
     deck = new Deck();
     deck->Shuffle();
 
@@ -28,5 +33,10 @@ void GameMode::StartGame()
     player = new Player(name);
     dealer = new Player("Dealer");
 
-    player->Bet();
+    system("cls");
+
+    auto& uiController = UIController::GetInstance();
+
+    uiController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
+    uiController.ShowBets();
 }

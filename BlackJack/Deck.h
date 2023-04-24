@@ -2,6 +2,7 @@
 #include <queue>
 #include "Card.h"
 
+
 class Deck
 {
 private:
@@ -10,6 +11,15 @@ private:
 public:
     Deck();
 
+    /**
+     * @brief 
+     * @return 
+    */
+    Card DealCard();
+
+    /**
+     * @brief 
+    */
     void Shuffle();
 };
 
