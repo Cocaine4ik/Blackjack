@@ -2,6 +2,8 @@
 #include "UIController.h"
 #include "GameMode.h"
 #include "Player.h"
+#include "GameConfig.h"
+#include <iostream>
 
 /**
  * @brief 
@@ -19,7 +21,13 @@ public:
 class ShowPauseMenuCommand : public Command
 {
 public:
-    virtual void Execute() { UIController::GetInstance().ShowPauseMenu(); }
+    virtual void Execute() 
+    { 
+        if (GameMode::GetInstance().GetGameState() != GameState::Menu) 
+        {
+            UIController::GetInstance().ShowPauseMenu();
+        }
+    }
 };
 
 /**
@@ -67,13 +75,48 @@ public:
     }
 };
 
-class SmallBetCommand : public Command 
+class MinBetCommand : public Command 
 {
 public:
     virtual void Execute()
     {
         auto& player = GameMode::GetInstance().GetPlayer();
 
-        player.Bet(100);
+        player.Bet(GameConfig::GetInstance().GetMinBet());
+
+        std::cout << "test";
+    }
+};
+
+class MediumBetCommand : public Command
+{
+public:
+    virtual void Execute()
+    {
+        auto& player = GameMode::GetInstance().GetPlayer();
+
+        player.Bet(GameConfig::GetInstance().GetMediumBet());
+    }
+};
+
+class LargeBetCommand : public Command
+{
+public:
+    virtual void Execute()
+    {
+        auto& player = GameMode::GetInstance().GetPlayer();
+
+        player.Bet(GameConfig::GetInstance().GetLargeBet());
+    }
+};
+
+class MaxBetCommand : public Command
+{
+public:
+    virtual void Execute()
+    {
+        auto& player = GameMode::GetInstance().GetPlayer();
+        auto& bank = G
+        player.Bet(GameConfig::GetInstance().GetMaxBet());
     }
 };

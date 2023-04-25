@@ -11,6 +11,8 @@ private:
 		mediumBet = 250;
 		largeBet = 500;
 		maxBet = 1000;
+
+        money = 1000;
 	};
 
 	int minBet;
@@ -18,11 +20,13 @@ private:
 	int largeBet;
 	int maxBet;
 
-public:
-	~GameConfig() {};
+    int money;
 
+public:
 	int GetMinBet() { return minBet; }
 	int GetMediumBet() { return mediumBet; }
 	int GetLargeBet() { return largeBet; }
 	int GetMaxBet() { return maxBet; }
+
+    int GetMoney() { return money; }
 };

@@ -32,11 +32,15 @@ void GameMode::StartGame()
 
     player = new Player(name);
     dealer = new Player("Dealer");
+}
 
+void GameMode::StartBets()
+{
     system("cls");
 
     auto& uiController = UIController::GetInstance();
 
     uiController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
     uiController.ShowBets();
+    SetGameState(GameState::Bets);
 }
