@@ -26,12 +26,12 @@ public:
 
     void TakeCard(Deck& deck);
 
+    int Bet(int value);
     void Hit();
     void Stand();
     void DoubleDown();
     void Split();
     void Surrender();
-    void Bet(int value);
 };
 
 

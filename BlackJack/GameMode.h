@@ -26,12 +26,18 @@ private:
     Player* dealer;
     Deck* deck;
 
+    int bank;
+
 public:
     GameState GetGameState() const { return gameState; }
     void SetGameState(GameState state) { gameState = state; }
 
     Player& GetPlayer() const { return *player;  }
 
+    int GetBank() { return bank; }
+    void SetBank(int value) { bank = value; }
     void StartGame();
+    void StartBets();
+    void StartRound();
 };
 

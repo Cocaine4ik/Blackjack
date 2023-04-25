@@ -48,10 +48,10 @@ void UIController::ShowBets()
 
     auto& config = GameConfig::GetInstance();
 
-    std::string str = "Make you bet:F1 - "s + std::to_string(config.GetMinBet())
-        + "\tF2 - "s + std::to_string(config.GetMediumBet())
-        + "\tF3 - "s + std::to_string(config.GetLargeBet())
-        + "\tF4 - "s + std::to_string(config.GetMaxBet());
+    std::string str = "Make you bet:\tZ - "s + std::to_string(config.GetMinBet())
+        + "$\tX - "s + std::to_string(config.GetMediumBet())
+        + "$\tC - "s + std::to_string(config.GetLargeBet())
+        + "$\tV - "s + std::to_string(config.GetMaxBet()) + "$"s;
     
     std::cout << str;
 }

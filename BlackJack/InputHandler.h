@@ -16,10 +16,10 @@ enum class Button
     Button_B = 66,
     Button_Y = 89,
     Button_N = 78,
-    Button_F1 = 112,
-    Button_F2 = 113,
-    Button_F3 = 114,
-    Button_F4 = 115
+    Button_Z = 90,
+    Button_X = 88,
+    Button_C = 67,
+    Button_V = 86
 };
 
 class InputHandler : public Singleton <InputHandler>
@@ -51,9 +51,9 @@ private:
     Command* button_B;
     Command* button_Y;
     Command* button_N;
-    Command* button_F1;
-    Command* button_F2;
-    Command* button_F3;
-    Command* button_F4;
+    Command* button_Z;
+    Command* button_X;
+    Command* button_C;
+    Command* button_V;
 
 };
