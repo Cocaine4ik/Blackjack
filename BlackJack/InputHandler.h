@@ -16,10 +16,10 @@ enum class Button
     Button_B = 66,
     Button_Y = 89,
     Button_N = 78,
-    Button_Z = 90,
-    Button_X = 88,
-    Button_C = 67,
-    Button_V = 86
+    Button_Z = 122,
+    Button_X = 120,
+    Button_C = 99,
+    Button_V = 118
 };
 
 class InputHandler : public Singleton <InputHandler>

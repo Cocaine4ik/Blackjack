@@ -25,6 +25,7 @@ public:
     void SetScore(int value) { score = value; }
 
     void TakeCard(Deck& deck);
+    void ShowCards();
 
     int Bet(int value);
     void Hit();

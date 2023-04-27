@@ -53,5 +53,6 @@ void GameMode::StartRound()
     auto& UIController = UIController::GetInstance();
     UIController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
     player->TakeCard(*deck);
-
+    player->TakeCard(*deck);
+    player->ShowCards();
 }

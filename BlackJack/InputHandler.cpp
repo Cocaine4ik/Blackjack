@@ -1,7 +1,7 @@
 #include "InputHandler.h"
 #include "Command.h"
 #include "Singleton.h"
-
+#include <iostream>
 InputHandler::InputHandler()
 {
     isBlocked = false;
@@ -41,7 +41,8 @@ void InputHandler::HandleInput(Button button)
     case Button::Button_X: button_X->Execute(); break;
     case Button::Button_C: button_C->Execute(); break;
     case Button::Button_V: button_V->Execute(); break;
-    default:
+    default: 
+        // std::cout << "Button wasn't recognized" << static_cast<int>(button) << std::endl;
         break;
     }
 }

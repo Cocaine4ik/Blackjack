@@ -2,6 +2,7 @@
 #include <string>
 #include "Deck.h"
 #include "GameConfig.h"
+#include "Card.h"
 
 Player::Player(std::string name)
 {
@@ -14,6 +15,14 @@ void Player::TakeCard(Deck& deck)
 {
     auto card = deck.DealCard();
     mainHand.push_front(card);
+}
+
+void Player::ShowCards()
+{
+    for (auto card : mainHand) 
+    {
+        card.Show();
+    }
 }
 
 int Player::Bet(int value)
