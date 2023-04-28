@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <conio.h>
 #include "UIController.h"
@@ -49,6 +49,7 @@ int main()
         if (!InputHandler::GetInstance().IsBlocked()) {
 
             buttonPressed = _getch();
+            std::cout << buttonPressed;
             InputHandler::GetInstance().HandleInput(static_cast<Button>(buttonPressed));
         }
 	}

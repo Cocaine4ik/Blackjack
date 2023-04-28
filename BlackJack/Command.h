@@ -3,7 +3,6 @@
 #include "GameMode.h"
 #include "Player.h"
 #include "GameConfig.h"
-#include <iostream>
 
 /**
  * @brief 
@@ -84,6 +83,7 @@ protected:
     void PlaceBet(const int& amount) 
     {
         auto& gameMode = GameMode::GetInstance();
+        if (gameMode.GetGameState() != GameState::Bets) return;
 
         auto& player = gameMode.GetPlayer();
         auto bet = player.Bet(amount);

@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include <string>
 
 enum class Suit {
     Clubs,
@@ -29,6 +31,10 @@ private:
     Rank rank;
     bool isFaced = false;
 
+    std::vector<std::string> icon;
+
+    void SetIcon();
+
 public:
     Card(Suit suit, Rank rank);
 
@@ -39,6 +45,11 @@ public:
     Suit GetSuit() { return this->suit; }
 
     Rank GetRank() { return this->rank; }
+
+    char GetSuitAsChar();
+    char GetRankAsChar();
+
+
 
     int GetPoints();
 };
