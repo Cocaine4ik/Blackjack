@@ -26,7 +26,7 @@ public:
 
     void TakeCard(Deck& deck);
 
-    void Bet(int value, int& bank);
+    int Bet(int value);
     void Hit();
     void Stand();
     void DoubleDown();

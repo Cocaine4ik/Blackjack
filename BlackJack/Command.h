@@ -78,45 +78,35 @@ public:
 class MinBetCommand : public Command 
 {
 public:
-    virtual void Execute()
+    virtual void Execute(){ PlaceBet(GameConfig::GetInstance().GetMinBet()); }
+
+protected:
+    void PlaceBet(const int& amount) 
     {
-        auto& player = GameMode::GetInstance().GetPlayer();
+        auto& gameMode = GameMode::GetInstance();
 
-        player.Bet(GameConfig::GetInstance().GetMinBet());
+        auto& player = gameMode.GetPlayer();
+        auto bet = player.Bet(amount);
+        gameMode.SetBank(bet);
 
-        std::cout << "test";
+        gameMode.StartRound();
     }
 };
 
-class MediumBetCommand : public Command
+class MediumBetCommand : public MinBetCommand
 {
 public:
-    virtual void Execute()
-    {
-        auto& player = GameMode::GetInstance().GetPlayer();
-
-        player.Bet(GameConfig::GetInstance().GetMediumBet());
-    }
+    virtual void Execute() { PlaceBet(GameConfig::GetInstance().GetMediumBet()); }
 };
 
-class LargeBetCommand : public Command
+class LargeBetCommand : public MinBetCommand
 {
 public:
-    virtual void Execute()
-    {
-        auto& player = GameMode::GetInstance().GetPlayer();
-
-        player.Bet(GameConfig::GetInstance().GetLargeBet());
-    }
+        virtual void Execute() { PlaceBet(GameConfig::GetInstance().GetLargeBet()); }
 };
 
-class MaxBetCommand : public Command
+class MaxBetCommand : public MinBetCommand
 {
 public:
-    virtual void Execute()
-    {
-        auto& player = GameMode::GetInstance().GetPlayer();
-        auto& bank = G
-        player.Bet(GameConfig::GetInstance().GetMaxBet());
-    }
+    virtual void Execute() { PlaceBet(GameConfig::GetInstance().GetMaxBet()); }
 };

@@ -38,5 +38,6 @@ public:
     void SetBank(int value) { bank = value; }
     void StartGame();
     void StartBets();
+    void StartRound();
 };
 

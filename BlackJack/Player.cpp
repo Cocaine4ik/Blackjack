@@ -16,8 +16,8 @@ void Player::TakeCard(Deck& deck)
     mainHand.push_front(card);
 }
 
-void Player::Bet(int value, int& bank)
+int Player::Bet(int value)
 {
     money -= value;
-    bank += value;
+    return value;
 }
