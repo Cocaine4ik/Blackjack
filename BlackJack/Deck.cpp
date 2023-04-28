@@ -9,15 +9,12 @@
 
 Deck::Deck()
 {
-    for (int i = static_cast<int>(Suit::Clubs);
-        i <= static_cast<int>(Suit::Spades);
-        i++) 
+    for (Suit suit : { Suit::Clubs, Suit::Diamonds, Suit::Hearts, Suit::Spades })
     {
-        for(int k = static_cast<int>(Rank::Ace);
-            k <= static_cast<int>(Rank::King);
-            k++) 
+        for (Rank rank : {Rank::Ace, Rank::Two, Rank::Three, Rank::Four, Rank::Five, Rank::Six, Rank::Seven,
+        Rank::Eight, Rank::Nine, Rank::Ten, Rank::Jack, Rank::Queen, Rank::King })
         {
-            Card card(static_cast<Suit>(i), static_cast<Rank>(k));
+            Card card(suit, rank);
             
             cards.push(card);
         }

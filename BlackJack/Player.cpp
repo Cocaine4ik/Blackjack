@@ -3,6 +3,7 @@
 #include "Deck.h"
 #include "GameConfig.h"
 #include "Card.h"
+#include <iostream>
 
 Player::Player(std::string name)
 {
@@ -14,14 +15,25 @@ Player::Player(std::string name)
 void Player::TakeCard(Deck& deck)
 {
     auto card = deck.DealCard();
-    mainHand.push_front(card);
+    mainHand.push_back(card);
 }
 
 void Player::ShowCards()
 {
-    for (auto card : mainHand) 
+    if (mainHand.empty()) return;
+
+    const auto linesCount = mainHand.front().GetIcon().size();
+
+    for (int i = 0; i < linesCount; i++) 
     {
-        card.Show();
+        for (auto& card : mainHand) 
+        {
+            const auto line = card.GetIcon()[i];
+
+            std::cout << line << "\t";
+        }
+
+        std::cout << std::endl;
     }
 }
 
