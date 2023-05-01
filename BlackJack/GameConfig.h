@@ -29,4 +29,5 @@ public:
 	int GetMaxBet() { return maxBet; }
 
     int GetMoney() { return money; }
+
 };

@@ -26,8 +26,10 @@ void UIController::ShowPauseMenu()
 
 void UIController::ShowGUI()
 {
-    std::cout << "GAME MENU:\t" << "H - Hit\t" << "1New Game\t" << "2. Rules\t" << "3. Exit" << std::endl;
+    std::cout << std::endl;
+    std::cout << "GAME MENU:\t" << "Q - Hit\t\t" << "W - Stand\t" << "E - Double Down\t\t" << "R - Surrender" << std::endl;
     std::cout << "Choose option to continue..." << std::endl;
+    std::cout << std::endl;
 }
 
 void UIController::ShowExitConfirmation()
@@ -35,12 +37,18 @@ void UIController::ShowExitConfirmation()
 	std::cout << "Are you sure you want to exit the game?\tPress: y - yes / n - no" << std::endl;
 }
 
-void UIController::ShowPlayerStat(const std::string& playerName, int money, int score)
+void UIController::ShowPlayerStat(const std::string& playerName, int money, int score, bool isDealer)
 {
+    auto moneyStr = std::to_string(money);
+    if (isDealer) moneyStr = std::string("\u221E");
+
+    std::cout << std::endl;
     std::cout << "***************************************************" << std::endl;
     std::cout << "* Name: " << playerName << "\t" << "Money: " << money << "\t" << "Score: " << score << " *" << std::endl;
     std::cout << "***************************************************" << std::endl;
+    std::cout << std::endl;
 }
+
 
 void UIController::ShowBets()
 {

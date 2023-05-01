@@ -12,10 +12,13 @@ private:
     int money;
     int score;
     
+    bool isDealer;
+    bool canSplit;
+
     std::list<Card> mainHand;
     std::list<Card> splitHand;
 public:
-    Player(std::string name);
+    Player(std::string name, bool isDealer = false);
     
     std::string GetName() { return name; }
     int GetMoney() { return money; }
@@ -24,6 +27,7 @@ public:
     void SetMoney(int value) { money = value; }
     void SetScore(int value) { score = value; }
 
+    bool IsDealer() { return isDealer; }
     void TakeCard(Deck& deck);
     void ShowCards();
 
@@ -33,6 +37,10 @@ public:
     void DoubleDown();
     void Split();
     void Surrender();
+
+private:
+    void CalculateScore();
+
 };
 
 

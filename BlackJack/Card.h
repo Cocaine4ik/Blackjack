@@ -29,7 +29,8 @@ class Card
 {
 private:
 
-    std::vector<std::string> icon;
+    std::vector<std::string> frontIcon;
+    std::vector<std::string> backIcon;
 
     Suit suit;
     Rank rank;
@@ -43,9 +44,13 @@ public:
     Suit GetSuit() { return this->suit; }
     Rank GetRank() { return this->rank; }
 
-    void SetIcon();
+    bool IsFaced() { return isFaced; }
+    void FaceUp() { isFaced = true; }
+    void SetFrontIcon();
+    void SetBackIcon();
 
     int GetPoints();
 
-    std::vector<std::string> GetIcon() { if (icon.empty()) SetIcon(); return icon; }
+    std::vector<std::string> GetFrontIcon() { if (frontIcon.empty()) SetFrontIcon(); return frontIcon; }
+    std::vector<std::string> GetBackIcon() { if (backIcon.empty()) SetBackIcon(); return backIcon; }
 };

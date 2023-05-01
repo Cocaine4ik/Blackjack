@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "GameConfig.h"
+
 Card::Card(Suit suit, Rank rank)
 {
 	this->suit = suit;
@@ -13,7 +15,7 @@ bool Card::operator==(const Card& other)
 	return this->suit == other.suit && this->rank == other.rank ? true : false;
 }
 
-void Card::SetIcon()
+void Card::SetFrontIcon()
 {
 	using namespace std::string_literals;
 
@@ -21,13 +23,29 @@ void Card::SetIcon()
 
 	char suit = static_cast<char>(this->suit);
 
-	icon.push_back("---------"s);
-	icon.push_back("|"s + " "s + rank + suit + "    "s + "|"s);
-	icon.push_back("|"s + "       "s + "|"s);
-	icon.push_back("|"s + "   "s + suit + "   "s + "|"s);
-	icon.push_back("|"s + "       "s + "|"s);
-	icon.push_back("|"s + "    "s + rank + suit + " "s + "|"s);
-	icon.push_back("---------"s);
+	frontIcon.push_back("---------"s);
+	frontIcon.push_back("|"s + " "s + rank + suit + "    "s + "|"s);
+	frontIcon.push_back("|"s + "       "s + "|"s);
+	frontIcon.push_back("|"s + "   "s + suit + "   "s + "|"s);
+	frontIcon.push_back("|"s + "       "s + "|"s);
+	frontIcon.push_back("|"s + "    "s + rank + suit + " "s + "|"s);
+	frontIcon.push_back("---------"s);
+
+}
+
+void Card::SetBackIcon()
+{
+	using namespace std::string_literals;
+
+	auto pattern = "#########";
+
+	backIcon.push_back("---------"s);
+	backIcon.push_back("|"s + "#######"s + "|"s);
+	backIcon.push_back("|"s + "#######"s + "|"s);
+	backIcon.push_back("|"s + "#######"s + "|"s);
+	backIcon.push_back("|"s + "#######"s + "|"s);
+	backIcon.push_back("|"s + "#######"s + "|"s);
+	backIcon.push_back("---------"s);
 }
 
 int Card::GetPoints()

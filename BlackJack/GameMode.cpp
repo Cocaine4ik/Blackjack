@@ -31,7 +31,7 @@ void GameMode::StartGame()
     InputHandler::GetInstance().Block(false);
 
     player = new Player(name);
-    dealer = new Player("Dealer");
+    dealer = new Player("Dealer", true);
 
     StartBets();
 }
@@ -50,9 +50,25 @@ void GameMode::StartBets()
 void GameMode::StartRound()
 {
     system("cls");
-    auto& UIController = UIController::GetInstance();
-    UIController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
+    auto& uiController = UIController::GetInstance();
+
+    // Dealer
+    dealer->TakeCard(*deck);
+    dealer->TakeCard(*deck);
+
+    uiController.ShowPlayerStat(dealer->GetName(), dealer->GetMoney(), dealer->GetScore(), dealer->IsDealer());
+
+    dealer->ShowCards();
+
+    // Player
+
     player->TakeCard(*deck);
     player->TakeCard(*deck);
+
+    uiController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
+
+
     player->ShowCards();
+
+    uiController.ShowGUI();
 }

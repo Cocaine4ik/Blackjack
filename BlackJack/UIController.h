@@ -10,7 +10,7 @@ public:
     void ShowGUI();
     void ShowExitConfirmation();
 
-	void ShowPlayerStat(const std::string& playerName, int money, int score);
+	void ShowPlayerStat(const std::string& playerName, int money, int score, bool isDealer = false);
 	void ShowBets();
 
     void ShowRules();
