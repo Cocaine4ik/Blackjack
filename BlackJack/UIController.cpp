@@ -8,17 +8,9 @@
 
 #define RULES_PATH "rules.txt"
 
-void UIController::ShowMainMenu()
+void UIController::ShowMenu()
 {
     GameMode::GetInstance().SetGameState(GameState::Menu);
-
-    std::cout << "MAIN MENU:\t" << "1 - New Game\t" << "2 - Rules\t" << "3 - Exit" << std::endl;
-    std::cout << "Choose option to continue..." << std::endl;
-}
-
-void UIController::ShowPauseMenu()
-{
-    GameMode::GetInstance().SetGameState(GameState::Pause);
 
     std::cout << "PAUSE MENU:\t" << "0 - Continue\t" << "1 - New Game\t" << "2 - Rules\t" << "3 - Exit" << std::endl;
     std::cout << "Choose option to continue..." << std::endl;
@@ -32,6 +24,13 @@ void UIController::ShowGUI()
     std::cout << std::endl;
 }
 
+void UIController::ShowDealerUI()
+{
+    std::cout << std::endl;
+    std::cout << "...DEALER TURN..." << std::endl;
+    std::cout << std::endl;
+}
+
 void UIController::ShowExitConfirmation()
 {
 	std::cout << "Are you sure you want to exit the game?\tPress: y - yes / n - no" << std::endl;
@@ -39,8 +38,6 @@ void UIController::ShowExitConfirmation()
 
 void UIController::ShowPlayerStat(const std::string& playerName, int money, int score, bool isDealer)
 {
-    auto moneyStr = std::to_string(money);
-    if (isDealer) moneyStr = std::string("\u221E");
 
     std::cout << std::endl;
     std::cout << "***************************************************" << std::endl;

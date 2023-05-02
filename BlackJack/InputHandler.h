@@ -5,15 +5,15 @@ class Command;
 
 enum class Button 
 {
-    Button_ESC = 27,
     Button_0 = 48,
     Button_1 = 49,
     Button_2 = 50,
     Button_3 = 51,
-    Button_H = 72,
-    Button_S = 83,
-    Button_D = 68,
-    Button_B = 66,
+    Button_Q = 113,
+    Button_W = 119,
+    Button_E = 101,
+    Button_R = 114,
+    Button_T = 116,
     Button_Y = 89,
     Button_N = 78,
     Button_Z = 122,
@@ -40,20 +40,19 @@ public:
 private:
     bool isBlocked;
 
-    Command* button_ESC;
     Command* button_0;
     Command* button_1;
     Command* button_2;
     Command* button_3;
-    Command* button_H;
-    Command* button_S;
-    Command* button_D;
-    Command* button_B;
     Command* button_Y;
     Command* button_N;
     Command* button_Z;
     Command* button_X;
     Command* button_C;
     Command* button_V;
-
+    Command* button_Q;
+    Command* button_W;
+    Command* button_E;
+    Command* button_R;
+    Command* button_T;
 };

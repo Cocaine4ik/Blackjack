@@ -11,10 +11,12 @@ Player::Player(std::string name, bool isDealer)
     this->money = GameConfig::GetInstance().GetMoney();
     this->score = 0;
     this->isDealer = isDealer;
+    this->isStand = false;
+    this->canDoubleDown = true;
     this->canSplit = false;
 }
 
-void Player::TakeCard(Deck& deck)
+void Player::Hit(Deck& deck)
 {
     auto card = deck.DealCard();
 
@@ -60,6 +62,8 @@ void Player::ShowCards()
 
 int Player::Bet(int value)
 {
+    if (money < value) return 0;
+
     money -= value;
     return value;
 }
@@ -67,12 +71,20 @@ int Player::Bet(int value)
 void Player::CalculateScore()
 {
     score = 0;
+    bool haveAce = false;
 
     for (auto& card : mainHand)
     {
         if (card.IsFaced())
         {
             score += card.GetPoints();
+
+            if (card.GetRank() == Rank::Ace) haveAce = true;
         }
+    }
+
+    if (haveAce && score + 10 <= 21)
+    {
+        score += 10;
     }
 }

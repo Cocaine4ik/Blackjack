@@ -5,9 +5,9 @@
 class UIController : public Singleton <UIController>
 {
 public:
-	void ShowMainMenu();
-	void ShowPauseMenu();
+	void ShowMenu();
     void ShowGUI();
+    void ShowDealerUI();
     void ShowExitConfirmation();
 
 	void ShowPlayerStat(const std::string& playerName, int money, int score, bool isDealer = false);

@@ -14,29 +14,32 @@ private:
     
     bool isDealer;
     bool canSplit;
+    bool canDoubleDown;
+    bool isStand;
 
     std::list<Card> mainHand;
     std::list<Card> splitHand;
 public:
     Player(std::string name, bool isDealer = false);
     
-    std::string GetName() { return name; }
-    int GetMoney() { return money; }
-    int GetScore() { return score; }
+    std::string GetName() const { return name; }
+    int GetMoney() const { return money; }
+    int GetScore() const { return score; }
 
     void SetMoney(int value) { money = value; }
     void SetScore(int value) { score = value; }
 
     bool IsDealer() { return isDealer; }
-    void TakeCard(Deck& deck);
+    bool IsStand() { return isStand; }
     void ShowCards();
 
     int Bet(int value);
-    void Hit();
-    void Stand();
-    void DoubleDown();
+    void Hit(Deck& deck);
+    void Stand() { isStand = true; }
     void Split();
     void Surrender();
+
+    Card& GetFirstCard() { return mainHand.front(); }
 
 private:
     void CalculateScore();

@@ -2,11 +2,11 @@
 #include "Command.h"
 #include "Singleton.h"
 #include <iostream>
+
 InputHandler::InputHandler()
 {
     isBlocked = false;
 
-    button_ESC = new ShowPauseMenuCommand();
     button_1 = new StartNewGameCommand();
     button_2 = new ShowRulesCommand();
     button_3 = new ShowExitMenuCommand();
@@ -14,11 +14,15 @@ InputHandler::InputHandler()
     button_X = new MediumBetCommand();
     button_C = new LargeBetCommand();
     button_V = new MaxBetCommand();
+    button_Q = new HitCommand();
+    button_W = new StandCommand();
+    button_E = new DoubleDownCommand();
+    button_R = new SplitCommand();
+    button_T = new SurrenderCommand();
 }
 
 InputHandler::~InputHandler()
 {
-    delete button_ESC;
     delete button_1;
     delete button_2;
     delete button_3;
@@ -26,13 +30,17 @@ InputHandler::~InputHandler()
     delete button_X;
     delete button_C;
     delete button_V;
+    delete button_Q;
+    delete button_W;
+    delete button_E;
+    delete button_R;
+    delete button_T;
 }
 
 void InputHandler::HandleInput(Button button)
 {
     switch (button)
     {
-    case Button::Button_ESC: button_ESC->Execute(); break;
     case Button::Button_0: button_0->Execute(); break;
     case Button::Button_1: button_1->Execute(); break;
     case Button::Button_2: button_2->Execute(); break;
@@ -41,6 +49,11 @@ void InputHandler::HandleInput(Button button)
     case Button::Button_X: button_X->Execute(); break;
     case Button::Button_C: button_C->Execute(); break;
     case Button::Button_V: button_V->Execute(); break;
+    case Button::Button_Q: button_Q->Execute(); break;
+    case Button::Button_W: button_W->Execute(); break;
+    case Button::Button_E: button_E->Execute(); break;
+    case Button::Button_R: button_R->Execute(); break;
+    case Button::Button_T: button_T->Execute(); break;
     default: 
         // std::cout << "Button wasn't recognized" << static_cast<int>(button) << std::endl;
         break;

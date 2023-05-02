@@ -7,9 +7,11 @@ class Deck;
 enum class GameState
 {
     Menu,
-    Pause,
+    Start,
     Bets,
-    Game,
+    FirstHit,
+    PlayerTurn,
+    DealerTurn,
     Exit
 };
 
@@ -36,8 +38,23 @@ public:
 
     int GetBank() { return bank; }
     void SetBank(int value) { bank = value; }
+
     void StartGame();
     void StartBets();
-    void StartRound();
+
+    void PlaceBet(const int& amount);
+
+    void Hit();
+    void Stand();
+    void DoubleDown();
+    void Split();
+    void Surrender();
+
+    void Pause();
+    void Exit();
+
+private:
+    void CheckScore();
+    void GameOver(const Player& winner);
 };
 

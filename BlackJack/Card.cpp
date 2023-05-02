@@ -52,7 +52,7 @@ int Card::GetPoints()
 {
 	switch (this->rank)
 	{
-	case Rank::Ace: return 11;
+	case Rank::Ace: return 1;
 	case Rank::Two: return 2;
 	case Rank::Three: return 3;
 	case Rank::Four: return 4;
