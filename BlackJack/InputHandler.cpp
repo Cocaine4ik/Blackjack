@@ -5,8 +5,12 @@
 
 InputHandler::InputHandler()
 {
+    // input handler in not blocked by default
     isBlocked = false;
 
+    // allocate memory for each button (command)
+
+    button_SPACE = new ContinueCommand();
     button_1 = new StartNewGameCommand();
     button_2 = new ShowRulesCommand();
     button_3 = new ShowExitMenuCommand();
@@ -23,6 +27,8 @@ InputHandler::InputHandler()
 
 InputHandler::~InputHandler()
 {
+    // delete dynamically allocated memoty for each button (command)
+    delete button_SPACE;
     delete button_1;
     delete button_2;
     delete button_3;
@@ -39,9 +45,11 @@ InputHandler::~InputHandler()
 
 void InputHandler::HandleInput(Button button)
 {
+    if (IsBlocked()) return;
+
     switch (button)
     {
-    case Button::Button_0: button_0->Execute(); break;
+    case Button::Button_SPACE: button_SPACE->Execute(); break;
     case Button::Button_1: button_1->Execute(); break;
     case Button::Button_2: button_2->Execute(); break;
     case Button::Button_3: button_3->Execute(); break;

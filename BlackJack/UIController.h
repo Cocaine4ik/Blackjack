@@ -5,7 +5,6 @@
 class UIController : public Singleton <UIController>
 {
 public:
-	void ShowMenu();
     void ShowGUI();
     void ShowDealerUI();
     void ShowExitConfirmation();

@@ -3,8 +3,13 @@
 #include "GameMode.h"
 #include "GameConfig.h"
 
+#define MIN_BET 100
+#define MEDIUM_BET 250
+#define LARGE_BET 500
+#define MAX_BET 1000
+
 /**
- * @brief 
+ * @brief Base
 */
 class Command
 {
@@ -18,8 +23,7 @@ public:
 */
 class ShowExitMenuCommand : public Command
 {
-public:
-    virtual void Execute() { UIController::GetInstance().ShowExitConfirmation(); }
+    virtual void Execute() override { UIController::GetInstance().ShowExitConfirmation(); }
 };
 
 /**
@@ -27,51 +31,37 @@ public:
 */
 class ShowRulesCommand : public Command
 {
-public:
-    virtual void Execute()
-    {
-        auto gameState = GameMode::GetInstance().GetGameState();
-        auto& uiController = UIController::GetInstance();
-
-        if (gameState == GameState::Menu)
-        {
-            uiController.ShowRules();
-            uiController.ShowMenu();
-        }
-    }
+    virtual void Execute() { GameMode::GetInstance().ShowRules(); }
 };
 
 class StartNewGameCommand : public Command
 {
-public:
-    virtual void Execute()
-    {
-        GameMode::GetInstance().StartGame();
-    }
+    virtual void Execute() override{ GameMode::GetInstance().StartGame(); }
+};
+
+class ContinueCommand : public Command
+{
+    virtual void Execute() { GameMode::GetInstance().ContinueGame(); }
 };
 
 class MinBetCommand : public Command 
 {
-public:
-    virtual void Execute(){ GameMode::GetInstance().PlaceBet(GameConfig::GetInstance().GetMinBet()); }
+    virtual void Execute(){ GameMode::GetInstance().PlaceBet(MIN_BET); }
 };
 
 class MediumBetCommand : public MinBetCommand
 {
-public:
-    virtual void Execute() { GameMode::GetInstance().PlaceBet(GameConfig::GetInstance().GetMediumBet()); }
+    virtual void Execute() { GameMode::GetInstance().PlaceBet(MEDIUM_BET); }
 };
 
 class LargeBetCommand : public MinBetCommand
 {
-public:
-        virtual void Execute() { GameMode::GetInstance().PlaceBet(GameConfig::GetInstance().GetLargeBet()); }
+    virtual void Execute() { GameMode::GetInstance().PlaceBet(LARGE_BET); }
 };
 
 class MaxBetCommand : public MinBetCommand
 {
-public:
-    virtual void Execute() { GameMode::GetInstance().PlaceBet(GameConfig::GetInstance().GetMaxBet()); }
+    virtual void Execute() { GameMode::GetInstance().PlaceBet(MAX_BET); }
 };
 
 class HitCommand : public Command
@@ -107,5 +97,6 @@ class ConfirmExitCommand : public Command
 
 class CancelExitCommand : public Command
 {
-
+    virtual void Execute() { GameMode::GetInstance().Surrender(); }
 };
+

@@ -5,10 +5,12 @@
 #include "Card.h"
 #include <iostream>
 
+#define DEFAULT_MONEY 1000
+
 Player::Player(std::string name, bool isDealer)
 {
     this->name = name;
-    this->money = GameConfig::GetInstance().GetMoney();
+    this->money = DEFAULT_MONEY;
     this->score = 0;
     this->isDealer = isDealer;
     this->isStand = false;
@@ -58,6 +60,17 @@ void Player::ShowCards()
 
         std::cout << std::endl;
     }
+}
+
+void Player::ClearHands()
+{
+    this->score = 0;
+    this->isStand = false;
+    this->canDoubleDown = true;
+    this->canSplit = false;
+
+    mainHand.clear();
+    splitHand.clear();
 }
 
 int Player::Bet(int value)

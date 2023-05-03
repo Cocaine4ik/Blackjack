@@ -1,11 +1,20 @@
+/*
+Blackjack The Game 
+by github.com/Cocaine4ik/
+*/
+
 #pragma once
 #include "Singleton.h"
+#include "Command.h"
 
 class Command;
 
+/**
+ * @brief Buttons enum where numbers represents ASCII character set
+*/
 enum class Button 
 {
-    Button_0 = 48,
+    Button_SPACE = 32,
     Button_1 = 49,
     Button_2 = 50,
     Button_3 = 51,
@@ -22,25 +31,52 @@ enum class Button
     Button_V = 118
 };
 
+/**
+ * @brief Input handler class
+ * part of Command pattern implementation
+ * based on Singleton
+*/
 class InputHandler : public Singleton <InputHandler>
 {
     friend class Singleton<InputHandler>;
 
 private:
+    /**
+     * @brief Default constructor
+    */
     InputHandler();
+
+    /**
+     * @brief Default destructor
+    */
     ~InputHandler();
 
 public:
+    /**
+     * @brief Hadnle keyboard input
+     * if button recognized execute command
+     * @param button enum class Button
+    */
     void HandleInput(Button button);
 
+    /**
+     * @brief 
+     * @return 
+    */
     bool IsBlocked() const { return isBlocked; }
     void Block(bool value) { isBlocked = value; }
 
 
 private:
+    /**
+     * @brief Is this input handler blocked or no
+    */
     bool isBlocked;
 
-    Command* button_0;
+    /**
+     * @brief Command pointers for every button in game
+    */
+    Command* button_SPACE;
     Command* button_1;
     Command* button_2;
     Command* button_3;

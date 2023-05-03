@@ -1,6 +1,7 @@
 #include "GameMode.h"
 #include <iostream>
 #include <string>
+#include <iostream>
 #include <chrono>
 #include <thread>
 #include "Player.h"
@@ -8,11 +9,30 @@
 #include "InputHandler.h"
 #include "UIController.h"
 
+#define STAT_BORDER_WIDTH 60
+#define STAT_BORDER_SYMBOL '*'
+
 GameMode::~GameMode()
 {
     delete player;
     delete dealer;
     delete deck;
+}
+
+void GameMode::Welcome()
+{
+    std::cout << "Welcome to Black Jack Console Game" << std::endl << std::endl;
+
+    std::cout << "MENU:\t" << "1 - New Game\t" << "2 - Rules\t" << "3 - Exit" << std::endl;
+    std::cout << "Choose option to continue..." << std::endl;
+}
+
+void GameMode::ShowMenu()
+{
+    SetGameState(GameState::Menu);
+
+    std::cout << "MENU:\t" << "SPACE - Continue\t" << "1 - New Game\t" << "2 - Rules\t" << "3 - Exit" << std::endl;
+    std::cout << "Choose option to continue..." << std::endl;
 }
 
 void GameMode::StartGame()
@@ -51,6 +71,26 @@ void GameMode::StartBets()
     uiController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
     uiController.ShowBets();
 
+}
+
+void GameMode::ShowStat()
+{
+    std::string border(STAT_BORDER_WIDTH, STAT_BORDER_SYMBOL);
+    std::string playerStat = "* Name: " + player->GetName() + "\t" + "Money: "
+        + std::to_string(player->GetMoney()) + "\tScore: " + std::to_string(player->GetScore());
+
+
+    std::cout << std::endl;
+    std::cout << border << std::endl;
+    std::cout << "* Name: " << dealer->GetName() << "\t" << "Bank: " << GetBank() << "\t" << "Score: " << dealer->GetScore() << " *" << std::endl;
+    std::cout << "***************************************************" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "***************************************************" << std::endl;
+    std::cout << "* Name: " << player->GetName() << "\t" << "Money: " << money << "\t" << "Score: " << score << " *" << std::endl;
+    std::cout << "***************************************************" << std::endl;
+    std::cout << std::endl;
 }
 
 void GameMode::Hit()
@@ -135,6 +175,7 @@ void GameMode::DoubleDown()
     if (bet == 0) return;
     SetBank(bet);
     Hit();
+    Stand();
 }
 
 void GameMode::Split()
@@ -143,6 +184,18 @@ void GameMode::Split()
 
 void GameMode::Surrender()
 {
+}
+
+void GameMode::ContinueGame()
+{
+    bank = 0;
+    player->ClearHands();
+    dealer->ClearHands();
+
+    delete deck;
+    deck = new Deck();
+    deck->Shuffle();
+    StartBets();
 }
 
 void GameMode::CheckScore()
@@ -179,7 +232,16 @@ void GameMode::GameOver(const Player& winner)
 {
     std::cout << winner.GetName() << " WIN!!! " << std::endl;
 
-    UIController::GetInstance().ShowMenu();
+    if (winner.GetName() == player->GetName()) player->AddMoney(bank*2);
+    ShowMenu();
+}
+
+void GameMode::ExitGame()
+{
+}
+
+void GameMode::ShowRules()
+{
 }
 
 void GameMode::PlaceBet(const int& amount)

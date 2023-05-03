@@ -151,7 +151,6 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Deck.h" />
-    <ClInclude Include="GameConfig.h" />
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Singleton.h" />

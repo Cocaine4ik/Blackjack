@@ -31,6 +31,7 @@ private:
     int bank;
 
 public:
+    
     GameState GetGameState() const { return gameState; }
     void SetGameState(GameState state) { gameState = state; }
 
@@ -39,8 +40,14 @@ public:
     int GetBank() { return bank; }
     void SetBank(int value) { bank = value; }
 
+    void Welcome();
+    void ShowMenu();
     void StartGame();
     void StartBets();
+    void ShowStat();
+    void ContinueGame();
+    void ExitGame();
+    void ShowRules();
 
     void PlaceBet(const int& amount);
 
@@ -49,9 +56,6 @@ public:
     void DoubleDown();
     void Split();
     void Surrender();
-
-    void Pause();
-    void Exit();
 
 private:
     void CheckScore();

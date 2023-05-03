@@ -1,7 +1,5 @@
 ﻿#include <iostream>
-#include <string>
 #include <conio.h>
-#include "UIController.h"
 #include "InputHandler.h"
 #include "GameMode.h"
 
@@ -20,19 +18,15 @@ int main()
 
 	system("color 17");
 
-	std::cout << "Welcome to Black Jack Console Game" << std::endl << std::endl;
-
-	UIController::GetInstance().ShowMenu();
+    GameMode::GetInstance().Welcome();
 
 	char buttonPressed;
 
 	while (true) {
 
-        if (!InputHandler::GetInstance().IsBlocked()) {
-
-            buttonPressed = _getch();
-            InputHandler::GetInstance().HandleInput(static_cast<Button>(buttonPressed));
-        }
+        buttonPressed = _getch();
+        
+        InputHandler::GetInstance().HandleInput(static_cast<Button>(buttonPressed));
 	}
 
 }

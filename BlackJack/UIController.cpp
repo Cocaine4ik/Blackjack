@@ -8,14 +8,6 @@
 
 #define RULES_PATH "rules.txt"
 
-void UIController::ShowMenu()
-{
-    GameMode::GetInstance().SetGameState(GameState::Menu);
-
-    std::cout << "PAUSE MENU:\t" << "0 - Continue\t" << "1 - New Game\t" << "2 - Rules\t" << "3 - Exit" << std::endl;
-    std::cout << "Choose option to continue..." << std::endl;
-}
-
 void UIController::ShowGUI()
 {
     std::cout << std::endl;

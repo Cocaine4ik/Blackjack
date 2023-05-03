@@ -26,12 +26,13 @@ public:
     int GetMoney() const { return money; }
     int GetScore() const { return score; }
 
-    void SetMoney(int value) { money = value; }
+    void AddMoney(int value) { money += value; }
     void SetScore(int value) { score = value; }
 
     bool IsDealer() { return isDealer; }
     bool IsStand() { return isStand; }
     void ShowCards();
+    void ClearHands();
 
     int Bet(int value);
     void Hit(Deck& deck);
