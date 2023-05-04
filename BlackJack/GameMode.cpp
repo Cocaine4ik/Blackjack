@@ -68,7 +68,7 @@ void GameMode::StartBets()
 
     auto& uiController = UIController::GetInstance();
 
-    uiController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
+    ShowStat();
     uiController.ShowBets();
 
 }
@@ -77,19 +77,32 @@ void GameMode::ShowStat()
 {
     std::string border(STAT_BORDER_WIDTH, STAT_BORDER_SYMBOL);
     std::string playerStat = "* Name: " + player->GetName() + "\t" + "Money: "
-        + std::to_string(player->GetMoney()) + "\tScore: " + std::to_string(player->GetScore());
+        + std::to_string(player->GetMoney()) + "\tScore: "
+        + std::to_string(player->GetScore());
+    
+    auto spacesCount = STAT_BORDER_WIDTH - playerStat.length() - 1;
+    std::string spaces(spacesCount, ' ');
 
+    playerStat += spaces + "*";
 
     std::cout << std::endl;
     std::cout << border << std::endl;
-    std::cout << "* Name: " << dealer->GetName() << "\t" << "Bank: " << GetBank() << "\t" << "Score: " << dealer->GetScore() << " *" << std::endl;
-    std::cout << "***************************************************" << std::endl;
+    std::cout << playerStat << std::endl;
+    std::cout << border << std::endl;
     std::cout << std::endl;
 
+    std::string dealerStat = "* Name: " + dealer->GetName() + "\t" + "Bank: "
+        + std::to_string(GetBank()) + "\tScore: "
+        + std::to_string(dealer->GetScore());
+
+    spacesCount = STAT_BORDER_WIDTH - dealerStat.length() - 1;
+    spaces.assign(spacesCount, ' ');
+    dealerStat += spaces + "*";
+
     std::cout << std::endl;
-    std::cout << "***************************************************" << std::endl;
-    std::cout << "* Name: " << player->GetName() << "\t" << "Money: " << money << "\t" << "Score: " << score << " *" << std::endl;
-    std::cout << "***************************************************" << std::endl;
+    std::cout << border << std::endl;
+    std::cout << dealerStat << std::endl;
+    std::cout << border << std::endl;
     std::cout << std::endl;
 }
 
