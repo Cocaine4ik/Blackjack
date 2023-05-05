@@ -1,5 +1,4 @@
 #pragma once
-#include "UIController.h"
 #include "GameMode.h"
 #include "GameConfig.h"
 
@@ -21,9 +20,9 @@ public:
 /**
  * @brief *
 */
-class ShowExitMenuCommand : public Command
+class ExitGameCommand : public Command
 {
-    virtual void Execute() override { UIController::GetInstance().ShowExitConfirmation(); }
+    virtual void Execute() override { GameMode::GetInstance().ExitGame(); }
 };
 
 /**

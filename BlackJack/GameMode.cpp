@@ -1,16 +1,15 @@
 #include "GameMode.h"
 #include <iostream>
-#include <string>
-#include <iostream>
 #include <chrono>
 #include <thread>
+#include <string>
+#include <fstream>
 #include "Player.h"
 #include "Deck.h"
 #include "InputHandler.h"
-#include "UIController.h"
 
-#define STAT_BORDER_WIDTH 60
-#define STAT_BORDER_SYMBOL '*'
+#define RULES_PATH "rules.txt"
+#define STAT_BORDER_WIDTH 72
 
 GameMode::~GameMode()
 {
@@ -66,42 +65,38 @@ void GameMode::StartBets()
 
     system("cls");
 
-    auto& uiController = UIController::GetInstance();
 
-    ShowStat();
-    uiController.ShowBets();
+    ShowStat(
+        strpair("Name: ", player->GetName()),
+        strpair("Money: ", std::to_string(player->GetMoney())), 
+        strpair("Score: ", std::to_string(player->GetScore()))
+    );
+        using namespace std::string_literals;
 
+        auto& config = GameConfig::GetInstance();
+
+        std::string str = "Make your bet:\tZ - "s + std::to_string(config.GetMinBet())
+            + "$\tX - "s + std::to_string(config.GetMediumBet())
+            + "$\tC - "s + std::to_string(config.GetLargeBet())
+            + "$\tV - "s + std::to_string(config.GetMaxBet()) + "$"s;
+
+        std::cout << str;
 }
 
-void GameMode::ShowStat()
+void GameMode::ShowStat(strpair name, strpair money, strpair score)
 {
-    std::string border(STAT_BORDER_WIDTH, STAT_BORDER_SYMBOL);
-    std::string playerStat = "* Name: " + player->GetName() + "\t" + "Money: "
-        + std::to_string(player->GetMoney()) + "\tScore: "
-        + std::to_string(player->GetScore());
-    
-    auto spacesCount = STAT_BORDER_WIDTH - playerStat.length() - 1;
-    std::string spaces(spacesCount, ' ');
+    std::string border(STAT_BORDER_WIDTH, '*');
+    std::string stat(STAT_BORDER_WIDTH, ' ');
 
-    playerStat += spaces + "*";
-
-    std::cout << std::endl;
-    std::cout << border << std::endl;
-    std::cout << playerStat << std::endl;
-    std::cout << border << std::endl;
-    std::cout << std::endl;
-
-    std::string dealerStat = "* Name: " + dealer->GetName() + "\t" + "Bank: "
-        + std::to_string(GetBank()) + "\tScore: "
-        + std::to_string(dealer->GetScore());
-
-    spacesCount = STAT_BORDER_WIDTH - dealerStat.length() - 1;
-    spaces.assign(spacesCount, ' ');
-    dealerStat += spaces + "*";
+    stat.replace(0, 2, "* ");
+    stat.replace(2, name.first.length() + name.second.length(), name.first + name.second);
+    stat.replace(STAT_BORDER_WIDTH / 3, money.first.length() + money.second.length(), money.first + money.second);
+    stat.replace(STAT_BORDER_WIDTH / 3 * 2, score.first.length() + score.second.length(), score.first + score.second);
+    stat.replace(stat.length() - 1, 1, "*");
 
     std::cout << std::endl;
     std::cout << border << std::endl;
-    std::cout << dealerStat << std::endl;
+    std::cout << stat << std::endl;
     std::cout << border << std::endl;
     std::cout << std::endl;
 }
@@ -109,7 +104,6 @@ void GameMode::ShowStat()
 void GameMode::Hit()
 {
     system("cls");
-    auto& uiController = UIController::GetInstance();
 
     // Dealer
     if (GetGameState() == GameState::FirstHit)
@@ -130,14 +124,30 @@ void GameMode::Hit()
         else if (GetGameState() == GameState::DealerTurn) dealer->Hit(*deck);
     }
 
-    uiController.ShowPlayerStat(dealer->GetName(), dealer->GetMoney(), dealer->GetScore(), dealer->IsDealer());
+    ShowStat(
+        strpair("Name: ", dealer->GetName()),
+        strpair("Bank: ", std::to_string(GetBank())),
+        strpair("Score: ", std::to_string(dealer->GetScore()))
+    );
     dealer->ShowCards();
 
-    uiController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
+    ShowStat(
+        strpair("Name: ", player->GetName()),
+        strpair("Money: ", std::to_string(player->GetMoney())),
+        strpair("Score: ", std::to_string(player->GetScore()))
+    );
     player->ShowCards();
     
-    if (GetGameState() == GameState::DealerTurn) uiController.ShowDealerUI();
-    else uiController.ShowGUI();
+    if (GetGameState() == GameState::DealerTurn)
+    {
+        std::cout << std::endl;
+        std::cout << "...DEALER TURN..." << std::endl;
+        std::cout << std::endl;
+    }
+    else
+    {
+        ShowGUI();
+    }
 
     CheckScore();
 
@@ -145,25 +155,26 @@ void GameMode::Hit()
     {
         SetGameState(GameState::PlayerTurn);
     }
-
 }
 
-void GameMode::Stand()
+void GameMode::StartDealerTurn()
 {
-    if (GetGameState() != GameState::PlayerTurn) return;
-
-    player->Stand();
+    system("cls");
 
     dealer->GetFirstCard().FaceUp();
 
-    system("cls");
-
-    auto& uiController = UIController::GetInstance();
-
-    uiController.ShowPlayerStat(dealer->GetName(), dealer->GetMoney(), dealer->GetScore(), dealer->IsDealer());
+    ShowStat(
+        strpair("Name: ", dealer->GetName()),
+        strpair("Bank: ", std::to_string(GetBank())),
+        strpair("Score: ", std::to_string(dealer->GetScore()))
+    );
     dealer->ShowCards();
 
-    uiController.ShowPlayerStat(player->GetName(), player->GetMoney(), player->GetScore());
+    ShowStat(
+        strpair("Name: ", player->GetName()),
+        strpair("Money: ", std::to_string(player->GetMoney())),
+        strpair("Score: ", std::to_string(player->GetScore()))
+    );
     player->ShowCards();
 
     SetGameState(GameState::DealerTurn);
@@ -179,6 +190,15 @@ void GameMode::Stand()
 
         CheckScore();
     }
+}
+
+void GameMode::Stand()
+{
+    if (GetGameState() != GameState::PlayerTurn) return;
+
+    player->Stand();
+
+    StartDealerTurn();
 }
 
 void GameMode::DoubleDown()
@@ -243,9 +263,29 @@ void GameMode::CheckScore()
 
 void GameMode::GameOver(const Player& winner)
 {
-    std::cout << winner.GetName() << " WIN!!! " << std::endl;
+    system("cls");
+    ShowStat(
+        strpair("Name: ", dealer->GetName()),
+        strpair("Bank: ", std::to_string(GetBank())),
+        strpair("Score: ", std::to_string(dealer->GetScore()))
+    );
+    dealer->ShowCards();
+
+    ShowStat(
+        strpair("Name: ", player->GetName()),
+        strpair("Money: ", std::to_string(player->GetMoney())),
+        strpair("Score: ", std::to_string(player->GetScore()))
+    );
+    player->ShowCards();
+
+    ShowStat(
+        strpair(" ", ""),
+        strpair(winner.GetName(), " WIN!"),
+        strpair(" ", "")
+    );
 
     if (winner.GetName() == player->GetName()) player->AddMoney(bank*2);
+
     ShowMenu();
 }
 
@@ -253,8 +293,49 @@ void GameMode::ExitGame()
 {
 }
 
+void GameMode::ConfirmExit()
+{
+}
+
+void GameMode::CancelExit()
+{
+}
+
 void GameMode::ShowRules()
 {
+    system("cls");
+    std::ifstream fin(RULES_PATH);
+
+    if (!fin.is_open())
+    {
+        throw std::runtime_error("Error opening file;");
+    }
+
+    try
+    {
+        char ch;
+        while (fin.get(ch))
+        {
+            std::cout << ch;
+        }
+    }
+
+    catch (const std::exception& ex)
+    {
+        std::cerr << "Exception caught: " << ex.what() << std::endl;
+    }
+
+    fin.close();
+
+    std::cout << std::endl;
+}
+
+void GameMode::ShowGUI()
+{
+    std::cout << std::endl;
+    std::cout << "GAME MENU:\t" << "Q - Hit\t\t" << "W - Stand\t" << "E - Double Down\t\t" << "R - Surrender" << std::endl;
+    std::cout << "Choose option to continue..." << std::endl;
+    std::cout << std::endl;
 }
 
 void GameMode::PlaceBet(const int& amount)

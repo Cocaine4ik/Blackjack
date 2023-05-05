@@ -144,7 +144,6 @@
     <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="UIController.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +153,6 @@
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="UIController.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

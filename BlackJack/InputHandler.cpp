@@ -13,7 +13,7 @@ InputHandler::InputHandler()
     button_SPACE = new ContinueCommand();
     button_1 = new StartNewGameCommand();
     button_2 = new ShowRulesCommand();
-    button_3 = new ShowExitMenuCommand();
+    button_3 = new ExitGameCommand();
     button_Z = new MinBetCommand();
     button_X = new MediumBetCommand();
     button_C = new LargeBetCommand();

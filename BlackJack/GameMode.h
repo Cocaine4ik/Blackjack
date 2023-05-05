@@ -1,5 +1,9 @@
 #pragma once
 #include "Singleton.h"
+#include <utility>
+#include <string>
+
+typedef std::pair<std::string, std::string> strpair;
 
 class Player;
 class Deck;
@@ -44,14 +48,19 @@ public:
     void ShowMenu();
     void StartGame();
     void StartBets();
-    void ShowStat();
+    void StartDealerTurn();
+    void ShowStat(strpair name, strpair money, strpair score);
     void ContinueGame();
     void ExitGame();
+    void ConfirmExit();
+    void CancelExit();
     void ShowRules();
+    void ShowGUI();
 
     void PlaceBet(const int& amount);
 
     void Hit();
+
     void Stand();
     void DoubleDown();
     void Split();
