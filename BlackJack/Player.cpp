@@ -1,7 +1,6 @@
 #include "Player.h"
 #include <string>
 #include "Deck.h"
-#include "GameConfig.h"
 #include "Card.h"
 #include <iostream>
 
@@ -14,8 +13,6 @@ Player::Player(std::string name, bool isDealer)
     this->score = 0;
     this->isDealer = isDealer;
     this->isStand = false;
-    this->canDoubleDown = true;
-    this->canSplit = false;
 }
 
 void Player::Hit(Deck& deck)
@@ -66,11 +63,8 @@ void Player::ClearHands()
 {
     this->score = 0;
     this->isStand = false;
-    this->canDoubleDown = true;
-    this->canSplit = false;
 
     mainHand.clear();
-    splitHand.clear();
 }
 
 int Player::Bet(int value)

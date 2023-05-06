@@ -13,12 +13,10 @@ private:
     int score;
     
     bool isDealer;
-    bool canSplit;
-    bool canDoubleDown;
     bool isStand;
 
     std::list<Card> mainHand;
-    std::list<Card> splitHand;
+
 public:
     Player(std::string name, bool isDealer = false);
     
@@ -37,8 +35,6 @@ public:
     int Bet(int value);
     void Hit(Deck& deck);
     void Stand() { isStand = true; }
-    void Split();
-    void Surrender();
 
     Card& GetFirstCard() { return mainHand.front(); }
 

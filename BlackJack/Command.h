@@ -1,6 +1,7 @@
 #pragma once
 #include "GameMode.h"
 #include "GameConfig.h"
+#include <cstdlib>
 
 #define MIN_BET 100
 #define MEDIUM_BET 250
@@ -78,12 +79,6 @@ class DoubleDownCommand : public Command
     virtual void Execute() { GameMode::GetInstance().DoubleDown(); }
 };
 
-
-class SplitCommand : public Command
-{
-    virtual void Execute() { GameMode::GetInstance().Split(); }
-};
-
 class SurrenderCommand : public Command
 {
     virtual void Execute() { GameMode::GetInstance().Surrender(); }
@@ -91,7 +86,7 @@ class SurrenderCommand : public Command
 
 class ConfirmExitCommand : public Command
 {
-
+    virtual void Execute() { exit(0); }
 };
 
 class CancelExitCommand : public Command

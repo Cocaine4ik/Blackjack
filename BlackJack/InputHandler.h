@@ -22,7 +22,6 @@ enum class Button
     Button_W = 119,
     Button_E = 101,
     Button_R = 114,
-    Button_T = 116,
     Button_Y = 89,
     Button_N = 78,
     Button_Z = 122,
@@ -90,5 +89,4 @@ private:
     Command* button_W;
     Command* button_E;
     Command* button_R;
-    Command* button_T;
 };

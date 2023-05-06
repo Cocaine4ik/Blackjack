@@ -21,8 +21,9 @@ InputHandler::InputHandler()
     button_Q = new HitCommand();
     button_W = new StandCommand();
     button_E = new DoubleDownCommand();
-    button_R = new SplitCommand();
-    button_T = new SurrenderCommand();
+    button_R = new SurrenderCommand();
+    button_Y = new ConfirmExitCommand();
+    button_N = new CancelExitCommand();
 }
 
 InputHandler::~InputHandler()
@@ -40,7 +41,8 @@ InputHandler::~InputHandler()
     delete button_W;
     delete button_E;
     delete button_R;
-    delete button_T;
+    delete button_Y;
+    delete button_N;
 }
 
 void InputHandler::HandleInput(Button button)
@@ -61,7 +63,8 @@ void InputHandler::HandleInput(Button button)
     case Button::Button_W: button_W->Execute(); break;
     case Button::Button_E: button_E->Execute(); break;
     case Button::Button_R: button_R->Execute(); break;
-    case Button::Button_T: button_T->Execute(); break;
+    case Button::Button_Y: button_Y->Execute(); break;
+    case Button::Button_N: button_N->Execute(); break;
     default: 
         // std::cout << "Button wasn't recognized" << static_cast<int>(button) << std::endl;
         break;

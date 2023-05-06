@@ -11,6 +11,14 @@
 #define RULES_PATH "rules.txt"
 #define STAT_BORDER_WIDTH 72
 
+GameMode::GameMode()
+{
+    this->player = nullptr;
+    this->dealer = nullptr;
+    this->deck = nullptr;
+    this->bank = 0;
+}
+
 GameMode::~GameMode()
 {
     delete player;
@@ -203,16 +211,12 @@ void GameMode::Stand()
 
 void GameMode::DoubleDown()
 {
-    if (GetGameState() == GameState::FirstHit) return;
+    if (GetGameState() != GameState::FirstHit) return;
     auto bet = player->Bet(bank);
     if (bet == 0) return;
     SetBank(bet);
     Hit();
     Stand();
-}
-
-void GameMode::Split()
-{
 }
 
 void GameMode::Surrender()
@@ -328,12 +332,22 @@ void GameMode::ShowRules()
     fin.close();
 
     std::cout << std::endl;
+
+    ShowMenu();
 }
 
 void GameMode::ShowGUI()
 {
     std::cout << std::endl;
-    std::cout << "GAME MENU:\t" << "Q - Hit\t\t" << "W - Stand\t" << "E - Double Down\t\t" << "R - Surrender" << std::endl;
+    if (GetGameState() == GameState::FirstHit)
+    {
+        std::cout << "GAME MENU:\t" << "Q - Hit\t\t" << "W - Stand\t" << "E - Double Down\t\t" << "R - Surrender" << std::endl;
+    }
+    else
+    {
+        std::cout << "GAME MENU:\t" << "Q - Hit\t\t" << "W - Stand" << std::endl;
+    }
+
     std::cout << "Choose option to continue..." << std::endl;
     std::cout << std::endl;
 }

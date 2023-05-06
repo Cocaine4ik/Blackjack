@@ -24,6 +24,14 @@ class GameMode : public Singleton <GameMode>
     friend class Singleton<GameMode>;
 
 private:
+    /**
+     * @brief Default constructor
+    */
+    GameMode();
+
+    /*
+    * @brief Default destructor
+    */
     ~GameMode();
 
     GameState gameState = GameState::Menu;
