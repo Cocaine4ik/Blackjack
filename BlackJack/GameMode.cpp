@@ -4,6 +4,7 @@
 #include <thread>
 #include <string>
 #include <fstream>
+#include <cstdlib>
 #include "Player.h"
 #include "Deck.h"
 #include "InputHandler.h"
@@ -310,14 +311,7 @@ void GameMode::GameOver(const Player& winner)
 
 void GameMode::ExitGame()
 {
-}
-
-void GameMode::ConfirmExit()
-{
-}
-
-void GameMode::CancelExit()
-{
+    exit(0);
 }
 
 void GameMode::ShowRules()

@@ -10,25 +10,27 @@ Card::Card(Suit suit, Rank rank)
 	this->rank = rank;
 }
 
-bool Card::operator==(const Card& other)
-{
-	return this->suit == other.suit && this->rank == other.rank ? true : false;
-}
-
 void Card::SetFrontIcon()
 {
 	using namespace std::string_literals;
 
+	// if card rank euqal 10 set string - 10, else set character from enum
 	auto rank = this->rank == Rank::Ten ? "10" : std::string(1, (static_cast<char>(this->rank)));
 
 	char suit = static_cast<char>(this->suit);
 
 	frontIcon.push_back("---------"s);
-	frontIcon.push_back("|"s + " "s + rank + suit + "    "s + "|"s);
+
+	if (rank == "10") frontIcon.push_back("|"s + " "s + rank + suit + "   "s + "|"s);
+	else frontIcon.push_back("|"s + " "s + rank + suit + "    "s + "|"s);
+
 	frontIcon.push_back("|"s + "       "s + "|"s);
 	frontIcon.push_back("|"s + "   "s + suit + "   "s + "|"s);
 	frontIcon.push_back("|"s + "       "s + "|"s);
-	frontIcon.push_back("|"s + "    "s + rank + suit + " "s + "|"s);
+
+	if (rank == "10") frontIcon.push_back("|"s + " "s + rank + suit + "   "s + "|"s);
+	else frontIcon.push_back("|"s + " "s + rank + suit + "    "s + "|"s);
+
 	frontIcon.push_back("---------"s);
 
 }

@@ -80,8 +80,10 @@ void Player::CalculateScore()
     score = 0;
     bool haveAce = false;
 
+
     for (auto& card : mainHand)
     {
+        // show score only of the faced cards
         if (card.IsFaced())
         {
             score += card.GetPoints();
@@ -90,6 +92,7 @@ void Player::CalculateScore()
         }
     }
 
+    // if player has Ace and if his score + 10 is not 21 Ace give 11 points (1 + 10)
     if (haveAce && score + 10 <= 21)
     {
         score += 10;

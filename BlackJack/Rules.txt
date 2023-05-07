@@ -28,7 +28,7 @@ closer to 21 than the dealer's hand without going over 21. Here are the basic ru
  unless the dealer also has a Blackjack, in which case it's a push.
 
 8. If the player wins, they are paid out 1:1 on their bet. If the player wins with a Blackjack,
- they are paid out 3:2 on their bet. If the player loses, the dealer collects their bet.
+ If the player loses, the dealer collects their bet.
  If the game ends in a push, the player's bet is returned.
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
