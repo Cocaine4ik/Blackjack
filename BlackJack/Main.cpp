@@ -16,11 +16,16 @@ int main()
 	* 7 = White             Bright White
 	*/
 
+	// Change console color scheme
 	system("color 17");
+
+	// Show welcome message and menu
 
     GameMode::GetInstance().Welcome();
 
 	char buttonPressed;
+
+	// Handle input and execute commands
 
 	while (true) {
 

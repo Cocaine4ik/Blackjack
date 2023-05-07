@@ -49,7 +49,7 @@ public:
 
     Player& GetPlayer() const { return *player;  }
 
-    int GetBank() { return bank; }
+    int GetBank() const { return bank; }
     void SetBank(int value) { bank = value; }
 
     void Welcome();

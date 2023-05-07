@@ -29,6 +29,7 @@ public:
 
     bool IsDealer() { return isDealer; }
     bool IsStand() { return isStand; }
+
     void ShowCards();
     void ClearHands();
 
@@ -37,6 +38,7 @@ public:
     void Stand() { isStand = true; }
 
     Card& GetFirstCard() { return mainHand.front(); }
+    int GetCardsCount() const { return mainHand.size(); }
 
 private:
     void CalculateScore();
