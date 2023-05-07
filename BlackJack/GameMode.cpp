@@ -10,7 +10,7 @@
 
 #define RULES_PATH "rules.txt"
 #define STAT_BORDER_WIDTH 72
-
+#define WIN_MULTIPLIER 2
 GameMode::GameMode()
 {
     this->player = nullptr;
@@ -38,7 +38,14 @@ void GameMode::ShowMenu()
 {
     SetGameState(GameState::Menu);
 
-    std::cout << "MENU:\t" << "SPACE - Continue\t" << "1 - New Game\t" << "2 - Rules\t" << "3 - Exit" << std::endl;
+    if (player->GetMoney() > 0)
+    {
+        std::cout << "MENU:\t" << "SPACE - Continue\t" << "1 - New Game\t" << "2 - Rules\t" << "3 - Exit" << std::endl;
+    }
+    else
+    {
+        std::cout << "MENU:\t" << "1 - New Game\t" << "2 - Rules\t" << "3 - Exit" << std::endl;
+    }
     std::cout << "Choose option to continue..." << std::endl;
 }
 
@@ -211,7 +218,8 @@ void GameMode::Stand()
 
 void GameMode::DoubleDown()
 {
-    if (GetGameState() != GameState::FirstHit) return;
+    if (player->GetCardsCount() > 2) return;
+
     auto bet = player->Bet(bank);
     if (bet == 0) return;
     SetBank(bet);
@@ -221,10 +229,17 @@ void GameMode::DoubleDown()
 
 void GameMode::Surrender()
 {
+    if (player->GetCardsCount() > 2) return;
+
+    player->AddMoney(GetBank() / WIN_MULTIPLIER);
+    SetBank(bank / WIN_MULTIPLIER);
+    GameOver(*dealer);
 }
 
 void GameMode::ContinueGame()
 {
+    if (GetGameState() != GameState::Menu || player->GetMoney() <= 0) return;
+
     bank = 0;
     player->ClearHands();
     dealer->ClearHands();
@@ -288,7 +303,7 @@ void GameMode::GameOver(const Player& winner)
         strpair(" ", "")
     );
 
-    if (winner.GetName() == player->GetName()) player->AddMoney(bank*2);
+    if (winner.GetName() == player->GetName()) player->AddMoney(bank * WIN_MULTIPLIER);
 
     ShowMenu();
 }
@@ -339,7 +354,7 @@ void GameMode::ShowRules()
 void GameMode::ShowGUI()
 {
     std::cout << std::endl;
-    if (GetGameState() == GameState::FirstHit)
+    if (player->GetCardsCount() < 3)
     {
         std::cout << "GAME MENU:\t" << "Q - Hit\t\t" << "W - Stand\t" << "E - Double Down\t\t" << "R - Surrender" << std::endl;
     }
@@ -354,7 +369,7 @@ void GameMode::ShowGUI()
 
 void GameMode::PlaceBet(const int& amount)
 {
-    if (gameState != GameState::Bets) return;
+    if (gameState != GameState::Bets || player->GetMoney() < amount) return;
     
     auto bet = player->Bet(amount);
     SetBank(bet);
